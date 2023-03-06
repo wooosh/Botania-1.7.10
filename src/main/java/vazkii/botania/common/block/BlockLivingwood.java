@@ -31,6 +31,9 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
+// TODO: emulate the log functionality of modern versions, probably by making
+// another decorative block because this one would need additional data to be
+// stored for orientation
 public class BlockLivingwood extends BlockMod implements ILexiconable {
 
 	private static final int TYPES = 6;

@@ -26,50 +26,63 @@ public class ModelSpreader extends ModelBase {
 	ModelRenderer cubeHole4;
 	ModelRenderer cubeInside;
 
+	// TODO: the wool model needs to be updates to fit the spreader more tightly 	
 	public ModelSpreader() {
 		textureWidth = 64;
-		textureHeight = 32;
+		textureHeight = 80;
 
+		// Directions are given as if from a player standing in front of the
+		// path of the mana spreader.
+
+		// Bottom face
 		cubeSide1 = new ModelRenderer(this, 0, 0);
-		cubeSide1.addBox(0F, 0F, 0F, 14, 1, 14);
-		cubeSide1.setRotationPoint(-7F, 22F, -7F);
-		cubeSide1.setTextureSize(64, 32);
-		cubeSide2 = new ModelRenderer(this, 0, 0);
-		cubeSide2.addBox(0F, 0F, 0F, 14, 13, 1);
-		cubeSide2.setRotationPoint(-7F, 9F, -7F);
-		cubeSide2.setTextureSize(64, 32);
-		cubeSide3 = new ModelRenderer(this, 0, 0);
-		cubeSide3.addBox(0F, 0F, 0F, 1, 13, 13);
-		cubeSide3.setRotationPoint(-7F, 9F, -6F);
-		cubeSide3.setTextureSize(64, 32);
-		cubeSide4 = new ModelRenderer(this, 0, 0);
-		cubeSide4.addBox(0F, 0F, 0F, 1, 13, 13);
-		cubeSide4.setRotationPoint(6F, 9F, -6F);
-		cubeSide4.setTextureSize(64, 32);
-		cubeSide5 = new ModelRenderer(this, 0, 0);
-		cubeSide5.addBox(0F, 0F, 0F, 12, 1, 13);
-		cubeSide5.setRotationPoint(-6F, 9F, -6F);
-		cubeSide5.setTextureSize(64, 32);
-		cubeHole1 = new ModelRenderer(this, 0, 0);
+		cubeSide1.addBox(0F, 0F, 0F, 12, 1, 12);
+		cubeSide1.setRotationPoint(-6F, 21F, -6F);
+
+		// Top face
+		cubeSide5 = new ModelRenderer(this, 0, 13);
+		cubeSide5.addBox(0F, 0F, 0F, 12, 1, 12);
+		cubeSide5.setRotationPoint(-6F, 10F, -6F);
+
+		// Back face
+		cubeSide3 = new ModelRenderer(this, 0, 26);
+		cubeSide3.addBox(0F, 0F, 0F, 12, 12, 1);
+		cubeSide3.setRotationPoint(-6F, 10F, -6F);
+
+		// Right face
+		cubeSide4 = new ModelRenderer(this, 0, 39);
+		cubeSide4.addBox(0F, 0F, 0F, 1, 12, 12);
+		cubeSide4.setRotationPoint(-6F, 10F, -6F);
+
+		// Left face
+		cubeSide2 = new ModelRenderer(this, 25, 39);
+		cubeSide2.addBox(0F, 0F, 0F, 1, 12, 12);
+		cubeSide2.setRotationPoint(5F, 10F, -6F);
+
+		// Front left face
+		cubeHole1 = new ModelRenderer(this, 0, 63);
 		cubeHole1.addBox(0F, 0F, 0F, 4, 12, 1);
-		cubeHole1.setRotationPoint(2F, 10F, 6F);
-		cubeHole1.setTextureSize(64, 32);
-		cubeHole2 = new ModelRenderer(this, 0, 0);
+		cubeHole1.setRotationPoint(2F, 10F, 5F);
+
+		// Front right face
+		cubeHole2 = new ModelRenderer(this, 11, 63);
 		cubeHole2.addBox(0F, 0F, 0F, 4, 12, 1);
-		cubeHole2.setRotationPoint(-6F, 10F, 6F);
-		cubeHole2.setTextureSize(64, 32);
-		cubeHole3 = new ModelRenderer(this, 0, 0);
+		cubeHole2.setRotationPoint(-6F, 10F, 5F);
+
+		// Front top face
+		cubeHole3 = new ModelRenderer(this, 24, 63);
 		cubeHole3.addBox(0F, 0F, 0F, 4, 4, 1);
-		cubeHole3.setRotationPoint(-2F, 18F, 6F);
-		cubeHole3.setTextureSize(64, 32);
-		cubeHole4 = new ModelRenderer(this, 0, 0);
-		cubeHole4.addBox(0F, 0F, 0F, 4, 4, 1);
-		cubeHole4.setRotationPoint(-2F, 10F, 6F);
-		cubeHole4.setTextureSize(64, 32);
-		cubeInside = new ModelRenderer(this, 30, 17);
+		cubeHole3.setRotationPoint(-2F, 10F, 5F);
+
+		// Front bottom face
+		cubeHole4 = new ModelRenderer(this, 37, 63);
+		cubeHole4.addBox(0F, 0F, 0F, 4, 12, 1);
+		cubeHole4.setRotationPoint(-2F, 18F, 5F);
+
+
+		cubeInside = new ModelRenderer(this, 32, 27);
 		cubeInside.addBox(0F, 0F, 0F, 6, 6, 6);
 		cubeInside.setRotationPoint(-3F, 13F, -3F);
-		cubeInside.setTextureSize(64, 32);
 	}
 
 	public void render() {

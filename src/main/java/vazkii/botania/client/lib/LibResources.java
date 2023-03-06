@@ -71,6 +71,7 @@ public final class LibResources {
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
 	public static final String MODEL_SPREADER_REDSTONE = PREFIX_MODEL + "spreaderRedstone.png";
 	public static final String MODEL_SPREADER_DREAMWOOD = PREFIX_MODEL + "spreaderDreamwood.png";
+	public static final String MODEL_SPREADER_GAIA = PREFIX_MODEL + "spreaderGaia.png";
 	public static final String MODEL_SPREADER_HALLOWEEN = PREFIX_MODEL + "spreader_halloween.png";
 	public static final String MODEL_SPREADER_REDSTONE_HALLOWEEN = PREFIX_MODEL + "spreaderRedstone_halloween.png";
 	public static final String MODEL_SPREADER_DREAMWOOD_HALLOWEEN = PREFIX_MODEL + "spreaderDreamwood_halloween.png";

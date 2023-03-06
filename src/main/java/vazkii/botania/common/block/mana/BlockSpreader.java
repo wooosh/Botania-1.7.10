@@ -56,6 +56,10 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setBlockName(LibBlockNames.SPREADER);
+		// TODO: figure out if collision should be changed to match the old full
+		// block behavior
+		float f = 1F / 16F;
+		setBlockBounds(2*f, 2*f, 2*f, 1 - 2*f, 1 - 2*f, 1 - 2*f);
 
 		random = new Random();
 	}

@@ -17,20 +17,25 @@ public class ModelCrystalCube extends ModelBase {
 	public ModelRenderer cube;
 	public ModelRenderer base1;
 	public ModelRenderer base2;
+	public ModelRenderer base3;
 
 	public ModelCrystalCube() {
 		textureWidth = 48;
-		textureHeight = 32;
+		textureHeight = 48;
 		cube = new ModelRenderer(this, 0, 0);
 		cube.setRotationPoint(0.0F, 12.0F, 0.0F);
 		cube.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8, 0.0F);
-		base1 = new ModelRenderer(this, 22, 0);
+		base1 = new ModelRenderer(this, 24, 0);
 		base1.setRotationPoint(0.0F, 16.0F, 0.0F);
-		base1.addBox(-3.0F, 7.0F, -3.0F, 6, 1, 6, 0.0F);
+		base1.addBox(-3.0F, 7.0F, -3.0F, 6, 2, 6, 0.0F);
 		base2 = new ModelRenderer(this, 0, 16);
 		base2.setRotationPoint(0.0F, 0.0F, 0.0F);
 		base2.addBox(-5.0F, 3.0F, -5.0F, 10, 4, 10, 0.0F);
 		base1.addChild(base2);
+		base3 = new ModelRenderer(this, 0, 30);
+		base3.setRotationPoint(0.0F, 0.0F, 0.0F);
+		base3.addBox(-5.0F, 3.0F, -5.0F, 10, 5, 10, 0.0F);
+		base1.addChild(base3);
 	}
 
 	public void renderBase() {

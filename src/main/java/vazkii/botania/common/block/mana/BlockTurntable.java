@@ -42,14 +42,16 @@ public class BlockTurntable extends BlockModContainer implements IWandable, IWan
 
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
+		icons = new IIcon[3];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return par1 == 1 ? icons[0] : icons[1];
+		if (par1 == 0) return icons[2]; // bottom
+		if (par1 == 1) return icons[0]; // top
+		return icons[1]; // sides
 	}
 
 	@Override
