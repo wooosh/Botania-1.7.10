@@ -12,12 +12,15 @@ package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.achievement.ICraftAchievement;
@@ -29,11 +32,25 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockCorporeaRetainer extends BlockModContainer implements ILexiconable, ICraftAchievement {
 
+	IIcon[] icons;
+
 	public BlockCorporeaRetainer() {
 		super(Material.iron);
 		setHardness(5.5F);
 		setStepSound(soundTypeMetal);
 		setBlockName(LibBlockNames.CORPOREA_RETAINER);
+	}
+
+	@Override
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[2];
+		for(int i = 0; i < icons.length; i++)
+			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	}
+
+	@Override
+	public IIcon getIcon(int par1, int par2) {
+		return icons[par1 > 1 ? 1 : 0];
 	}
 
 	@Override
