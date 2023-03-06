@@ -40,6 +40,9 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.client.model.ModelPool;
+import vazkii.botania.client.model.ModelGuiltyPool;
+import vazkii.botania.client.model.ModelDilutedPool;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -66,6 +69,18 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
 
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
+	}
+
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+		float height = 1.0F;
+		switch (world.getBlockMetadata(x, y, z)) {
+			case 3: // Fabulous pool
+			case 0: height = ModelPool.bboxHeight; break;
+			case 1: height = ModelGuiltyPool.bboxHeight; break;
+			case 2: height = ModelDilutedPool.bboxHeight; break;
+		}
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, height, 1.0F);
 	}
 
 	@Override
@@ -128,21 +143,37 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		}
 	}
 
-	// TODO; add collision boxes for new mana pool
 	@Override
-	public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
-		float f = 1F / 16F;
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(0.0F, 0.0F, 0.0F, f, 0.5F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, f);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 0.5F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
+		float borderWidth = 1/16F;
+		float height = 1.0F;
+		switch (world.getBlockMetadata(x, y, z)) {
+			case 0:
+			case 3: // Fabulous pool
+				height = ModelPool.bboxHeight;
+				borderWidth = ModelPool.borderWidth;
+				break;
+			case 1:
+				height = ModelGuiltyPool.bboxHeight;
+				borderWidth = ModelGuiltyPool.borderWidth;
+				break;
+			case 2:
+				height = ModelDilutedPool.bboxHeight;
+				borderWidth = ModelDilutedPool.borderWidth;
+				break;
+		}
+
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, borderWidth, 1.0F);
+		super.addCollisionBoxesToList(world, x, y, z, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(0.0F, 0.0F, 0.0F, borderWidth, height, 1.0F);
+		super.addCollisionBoxesToList(world, x, y, z, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, height, borderWidth);
+		super.addCollisionBoxesToList(world, x, y, z, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(1.0F - borderWidth, 0.0F, 0.0F, 1.0F, height, 1.0F);
+		super.addCollisionBoxesToList(world, x, y, z, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(0.0F, 0.0F, 1.0F - borderWidth, 1.0F, height, 1.0F);
+		super.addCollisionBoxesToList(world, x, y, z, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, height, 1.0F);
 	}
 
 	@Override

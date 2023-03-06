@@ -33,6 +33,8 @@ import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPool;
+import vazkii.botania.client.model.ModelGuiltyPool;
+import vazkii.botania.client.model.ModelDilutedPool;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
@@ -43,6 +45,8 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 	private static final ResourceLocation textureDil = new ResourceLocation(LibResources.MODEL_DILUTED_POOL);
 
 	private static final ModelPool model = new ModelPool();
+	private static final ModelPool modelInf = new ModelGuiltyPool();
+	private static final ModelPool modelDil = new ModelDilutedPool();
 	RenderItem renderItem = new RenderItem();
 
 	public static int forceMeta = 0;
@@ -64,7 +68,20 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		boolean dil = tileentity.getWorldObj() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
 		boolean fab = tileentity.getWorldObj() == null ? forceMeta == 3 : tileentity.getBlockMetadata() == 3;
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : dil ? textureDil : texture);
+		ResourceLocation activeTexture;
+		ModelPool activeModel;
+		if (inf) {
+			activeTexture = textureInf;
+			activeModel = modelInf;
+		} else if (dil) {
+			activeTexture = textureDil;
+			activeModel = modelDil;
+		} else {
+			activeTexture = texture;
+			activeModel = model;
+		}
+
+		Minecraft.getMinecraft().renderEngine.bindTexture(activeTexture);
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
@@ -81,7 +98,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GL11.glColor4f(acolor[0], acolor[1], acolor[2], a);
 		}
 
-		model.render();
+		activeModel.render();
 		GL11.glColor4f(1F, 1F, 1F, a);
 		GL11.glScalef(1F, -1F, -1F);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -95,9 +112,9 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		if(cap == -1)
 			cap = TilePool.MAX_MANA;
 
-		float waterLevel = (float) mana / (float) cap * 0.4F;
+		float waterLevel = (float) mana / (float) cap; 
 		if(forceMana)
-			waterLevel = 0.4F;
+			waterLevel = 1F;
 
 		float s = 1F / 16F;
 		float v = 1F / 8F;
@@ -133,7 +150,9 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			GL11.glColor4f(1F, 1F, 1F, a);
-			GL11.glTranslatef(w, -1F - (0.43F - waterLevel), w);
+			float yMin = -1.5F + activeModel.getMinManaHeight();
+			float y = yMin + waterLevel * (activeModel.getMaxManaHeight() - activeModel.getMinManaHeight());
+			GL11.glTranslatef(w, y, w);
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glScalef(s, s, s);
 
